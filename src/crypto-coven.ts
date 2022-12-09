@@ -8,9 +8,8 @@ import {
   CryptoCoven
 } from '../models/CryptoCoven'
 
-import {
-  User
-} from '../models/User'
+import { processAttribute } from './helpers/attribute'
+import { processUser } from './helpers/user'
 
 const ipfshash = "QmSr3vdMuP2fSxWD7S26KzzBWcAN1eNhm4hk1qaR3x3vmj"
 
@@ -42,27 +41,36 @@ export function handleTransfer(event: TransferEvent): void {
           token.ipfsURI = 'ipfs.io/ipfs/' + ipfshash + token.tokenURI
         }
 
-        const coven = value.get('coven')
-        if (coven != null) {
-          let covenData = coven.toObject()
-          const type = covenData.get('type')
-          if (type) {
-            token.type = type.toString()
-          }
-
-          const birthChart = covenData.get('birthChart')
-          if (birthChart) {
-            const birthChartData = birthChart.toObject()
-            const sun = birthChartData.get('sun')
-            const moon = birthChartData.get('moon')
-            const rising = birthChartData.get('rising')
-            if (sun && moon && rising) {
-              token.sun = sun.toString()
-              token.moon = moon.toString()
-              token.rising = rising.toString()
-            }
+        const CovenAttributes = value.get('attributes')
+        if (CovenAttributes){
+          let attributes = CovenAttributes.toArray()
+          for (let i=0; i < attributes.length; i++){
+            processAttribute(attributes[i].toObject(), token.tokenId, token.collection)
           }
         }
+
+        // const coven = value.get('coven')
+        // if (coven != null) {
+        //   let covenData = coven.toObject()
+        //   const type = covenData.get('type')
+        //   if (type) {
+
+        //     token.type = type.toString()
+        //   }
+
+        //   const birthChart = covenData.get('birthChart')
+        //   if (birthChart) {
+        //     const birthChartData = birthChart.toObject()
+        //     const sun = birthChartData.get('sun')
+        //     const moon = birthChartData.get('moon')
+        //     const rising = birthChartData.get('rising')
+        //     if (sun && moon && rising) {
+        //       token.sun = sun.toString()
+        //       token.moon = moon.toString()
+        //       token.rising = rising.toString()
+        //     }
+        //   }
+        // }
           
       }
     }
@@ -73,10 +81,5 @@ export function handleTransfer(event: TransferEvent): void {
   token.owner = event.params.to.toHexString()
   token.save()
   
-  /* if the user does not yet exist, create them */
-  let user = User.load(event.params.to.toHexString())
-  if (!user) {
-    user = new User(event.params.to.toHexString())
-    user.save()
-  }
+  processUser(event.params.to.toHexString())
  }

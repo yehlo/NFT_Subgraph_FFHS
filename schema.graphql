@@ -8,6 +8,7 @@ interface NFT{
   owner: User!
   updatedAtTimestamp: BigInt!
   collection: String!
+  traits: [Trait!] @derivedFrom(field: "tokenId")
 }
 
 type CryptoCoven implements NFT @entity {
@@ -26,6 +27,7 @@ type CryptoCoven implements NFT @entity {
   sun: String
   moon: String
   rising: String
+  traits: [Trait!] @derivedFrom(field: "tokenId")
 }
 
 type BoredApe implements NFT @entity {
@@ -38,16 +40,15 @@ type BoredApe implements NFT @entity {
   owner: User!
   updatedAtTimestamp: BigInt!
   collection: String!
-  hat: String
-  eyes: String!
-  fur: String!
-  earring: String
-  clothes: String
-  mouth: String!
-  background: String!
+  traits: [Trait!] @derivedFrom(field: "tokenId")
 }
 
-# union Token = CryptoCoven | BoredApe
+type Trait @entity {
+  id: ID!
+  tokenId: NFT!
+  traitName: String!
+  traitValue: String!
+}
 
 type User @entity {
   id: ID!

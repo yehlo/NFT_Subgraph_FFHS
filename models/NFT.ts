@@ -13,10 +13,6 @@ export class NFT extends Entity {
     this.set("tokenId", Value.fromString(tokenId));
   }
 
-  set tokenId(value: string){
-    this.set("tokenId", Value.fromString(value));
-  }
-
   get tokenId(): string {
     let value = this.get("tokenId");
     return value!.toString();
@@ -106,6 +102,15 @@ export class NFT extends Entity {
 
   set owner(value: string) {
     this.set("owner", Value.fromString(value));
+  }
+
+  get traits(): Array<string> {
+    let value = this.get("traits");
+    return value!.toStringArray();
+  }
+
+  set traits(value: Array<string>) {
+    this.set("traits", Value.fromStringArray(value));
   }
 
   static load(id: string, collection: string ): NFT | null {
