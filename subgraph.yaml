@@ -19,6 +19,7 @@ dataSources:
       entities:
         - CryptoCoven
         - User
+        - Trait
       abis:
         - name: CryptoCoven
           file: ./abis/CryptoCoven.json
