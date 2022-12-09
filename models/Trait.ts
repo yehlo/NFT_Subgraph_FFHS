@@ -12,6 +12,7 @@ export class Trait extends Entity {
     this.set("id", Value.fromString(id));
     this.set("tokenId", Value.fromString(tokenId));
     this.set("traitName", Value.fromString(traitName));
+    this.set("collection", Value.fromString(collection));
   }
 
   get tokenId(): string {
@@ -26,6 +27,11 @@ export class Trait extends Entity {
 
   get id(): string {
     let value = this.get("id");
+    return value!.toString();
+  }
+
+  get collection(): string {
+    let value = this.get("collection");
     return value!.toString();
   }
 
