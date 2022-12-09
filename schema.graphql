@@ -45,6 +45,7 @@ type BoredApe implements NFT @entity {
 
 type Trait @entity {
   id: ID!
+  collection: String!
   tokenId: NFT!
   traitName: String!
   traitValue: String!
