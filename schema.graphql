@@ -2,7 +2,6 @@ interface NFT{
   id: ID!
   tokenId: String!
   tokenURI: String!
-  externalURL: String
   ipfsURI: String!
   image: String!
   owner: User!
@@ -22,11 +21,6 @@ type CryptoCoven implements NFT @entity {
   updatedAtTimestamp: BigInt!
   collection: String!
   name: String!
-  description: String!
-  type: String
-  sun: String
-  moon: String
-  rising: String
   traits: [Trait!] @derivedFrom(field: "tokenId")
 }
 
@@ -34,7 +28,6 @@ type BoredApe implements NFT @entity {
   id: ID!
   tokenId: String!
   tokenURI: String!
-  externalURL: String
   ipfsURI: String!
   image: String!
   owner: User!
@@ -56,20 +49,22 @@ type User @entity {
   tokens: [NFT!] @derivedFrom(field: "owner")
 }
 
-type _Schema_
-  @fulltext(
-    name: "covenSearch"
-    language: en
-    algorithm: rank
-    include: [{entity: "CryptoCoven", fields:
-      [{ name: "name" }, { name: "description" }, { name: "type" }, { name: "sun" }, { name: "moon" }, { name: "rising" }
-    ] }]
-  )  type Approval @entity(immutable: true) {
-  id: Bytes!
-  owner: Bytes! # address
-  approved: Bytes! # address
-  tokenId: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
+# example for more complex search
+# should be reworked after abstraction
+# type _Schema_
+#   @fulltext(
+#     name: "covenSearch"
+#     language: en
+#     algorithm: rank
+#     include: [{entity: "CryptoCoven", fields:
+#       [{ name: "name" }, { name: "description" }, { name: "type" }, { name: "sun" }, { name: "moon" }, { name: "rising" }
+#     ] }]
+#   )  type Approval @entity(immutable: true) {
+#   id: Bytes!
+#   owner: Bytes! # address
+#   approved: Bytes! # address
+#   tokenId: BigInt! # uint256
+#   blockNumber: BigInt!
+#   blockTimestamp: BigInt!
+#   transactionHash: Bytes!
+# }

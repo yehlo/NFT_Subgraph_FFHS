@@ -59,15 +59,6 @@ export class NFT extends Entity {
     this.set("tokenURI", Value.fromString(value));
   }
 
-  get externalURL(): string {
-    let value = this.get("externalURL");
-    return value!.toString();
-  }
-
-  set externalURL(value: string) {
-    this.set("externalURL", Value.fromString(value));
-  }
-
   get ipfsURI(): string {
     let value = this.get("ipfsURI");
     return value!.toString();

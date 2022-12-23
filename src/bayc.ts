@@ -8,10 +8,6 @@ import {
 } from '../models/BAYC'
 
 import {
-  User
-} from '../models/User'
-
-import {
   processAttribute
 } from './helpers/attribute'
 
@@ -36,7 +32,8 @@ export function handleTransfer(event: TransferEvent): void {
         const image = value.get('image')
         
         if (image){
-          token.image = image.toString()
+          let imageStr = image.toString().split("//")[1]
+          token.image = 'ipfs.io/ipfs/' + imageStr
           token.ipfsURI = 'ipfs.io/ipfs/' + ipfshash + token.tokenURI
         }
 
@@ -44,7 +41,7 @@ export function handleTransfer(event: TransferEvent): void {
         if (ApeAttributes){
           let attributes = ApeAttributes.toArray()
           for (let i=0; i < attributes.length; i++){
-            processAttribute(attributes[i].toObject(), token.tokenId, token.collection)
+            processAttribute(attributes[i].toObject(), token.id, token.collection)
           }
         }
       }

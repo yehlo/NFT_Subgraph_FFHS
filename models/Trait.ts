@@ -8,7 +8,7 @@ import {
 export class Trait extends Entity {
   constructor(tokenId: string, traitName: string, collection: string) {
     super();
-    let id = collection + "_" + tokenId + "_" + traitName;
+    let id = tokenId + "_" + traitName;
     this.set("id", Value.fromString(id));
     this.set("tokenId", Value.fromString(tokenId));
     this.set("traitName", Value.fromString(traitName));

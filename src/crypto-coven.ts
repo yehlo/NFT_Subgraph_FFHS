@@ -30,14 +30,12 @@ export function handleTransfer(event: TransferEvent): void {
         /* using the metatadata from IPFS, update the token object with the values  */
         const image = value.get('image')
         const name = value.get('name')
-        const description = value.get('description')
         const externalURL = value.get('external_url')
 
-        if (name && image && description && externalURL) {
-          token.name = name.toString()
+        if (name && image && externalURL) {
+          token.name = name.toString() // name is addition to the usual NFT 
           token.image = image.toString()
           token.externalURL = externalURL.toString()
-          token.description = description.toString()
           token.ipfsURI = 'ipfs.io/ipfs/' + ipfshash + token.tokenURI
         }
 
@@ -45,7 +43,7 @@ export function handleTransfer(event: TransferEvent): void {
         if (CovenAttributes){
           let attributes = CovenAttributes.toArray()
           for (let i=0; i < attributes.length; i++){
-            processAttribute(attributes[i].toObject(), token.tokenId, token.collection)
+            processAttribute(attributes[i].toObject(), token.id, token.collection)
           }
         }
 
