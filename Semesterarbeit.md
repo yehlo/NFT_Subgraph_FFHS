@@ -465,7 +465,7 @@ Hiermit erkläre ich, dass ich die vorliegende Arbeit selbstständig und ohne fr
 
 Insbesondere versichere ich, dass ich alle wörtlichen und sinngemäßen Übernahmen aus anderen Werken als solche kenntlich gemacht habe.
 
-</u>Bern, 24.12.2022</u>  
+</u>Bern, 23.12.2022</u>  
 ![signature not uploaded out of safety](assets/signature.png)
 
 
